@@ -68,11 +68,40 @@ footer{border-top:1px solid var(--line);padding:28px 0;color:var(--mute);font-si
 footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
 .reveal{opacity:0;transform:translateY(18px);transition:.6s}
 .reveal.on{opacity:1;transform:none}
+
+body::before{content:"";position:fixed;inset:0;z-index:-2;background:radial-gradient(60% 50% at 15% 10%,rgba(201,168,255,.16),transparent 70%),radial-gradient(50% 45% at 90% 30%,rgba(90,140,255,.12),transparent 70%),radial-gradient(45% 40% at 40% 100%,rgba(255,120,160,.10),transparent 70%);animation:drift 22s ease-in-out infinite alternate}
+body::after{content:"";position:fixed;inset:0;z-index:-1;background-image:linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px);background-size:56px 56px;-webkit-mask-image:radial-gradient(ellipse at 50% 20%,#000 20%,transparent 75%);mask-image:radial-gradient(ellipse at 50% 20%,#000 20%,transparent 75%)}
+@keyframes drift{from{transform:translate3d(-3%,-2%,0) scale(1)}to{transform:translate3d(3%,3%,0) scale(1.15)}}
+.glow{position:fixed;width:520px;height:520px;border-radius:50%;pointer-events:none;z-index:-1;background:radial-gradient(circle,rgba(201,168,255,.14),transparent 65%);transform:translate(-50%,-50%);left:50%;top:30%;transition:left .35s ease-out,top .35s ease-out}
+.heroGrid{display:grid;grid-template-columns:1.05fr .95fr;gap:40px;align-items:center}
+.stack{position:relative;height:440px;perspective:1200px}
+.stack .win{position:absolute;width:78%;border-radius:12px;overflow:hidden;border:1px solid #34343a;background:#111;box-shadow:0 30px 70px rgba(0,0,0,.55)}
+.win .bar{height:22px;background:#1b1b1f;display:flex;gap:5px;align-items:center;padding:0 10px}
+.win .bar i{width:7px;height:7px;border-radius:50%;background:#3a3a40}
+.win img{display:block;width:100%;aspect-ratio:16/10;object-fit:cover}
+.stack .w1{right:0;top:0;transform:rotateY(-14deg) rotateX(4deg) rotate(2deg);animation:fl 7s ease-in-out infinite}
+.stack .w2{left:0;top:130px;transform:rotateY(-10deg) rotate(-3deg);animation:fl 8s ease-in-out -2s infinite;z-index:2}
+.stack .w3{right:8%;bottom:-20px;width:62%;transform:rotateY(-12deg) rotate(3deg);animation:fl 9s ease-in-out -4s infinite;z-index:3}
+@keyframes fl{0%,100%{translate:0 0}50%{translate:0 -14px}}
+.marq{border-block:1px solid var(--line);overflow:hidden;white-space:nowrap;padding:16px 0;color:var(--mute);font-size:14px;letter-spacing:.12em;text-transform:uppercase}
+.marq div{display:inline-block;animation:mq 32s linear infinite}
+.marq span{margin:0 26px}.marq span::before{content:"✦";color:var(--acc);margin-right:26px}
+@keyframes mq{to{transform:translateX(-50%)}}
+.card .shot{position:relative;overflow:hidden;background:#111}
+.card .shot .bar{height:24px;background:#1b1b1f;display:flex;gap:6px;align-items:center;padding:0 12px;border-bottom:1px solid var(--line)}
+.card .shot .bar i{width:8px;height:8px;border-radius:50%;background:#3a3a40}
+.card .shot img{border:0;aspect-ratio:16/10;transition:transform .6s ease}
+.card:hover .shot img{transform:scale(1.04)}
+.grid .card:nth-child(5){grid-column:1/-1}
+.grid .card:nth-child(5) .shot img{aspect-ratio:21/9;object-position:top}
+@media(max-width:820px){.heroGrid{grid-template-columns:1fr}.stack{height:300px;margin-top:20px}.grid .card:nth-child(5) .shot img{aspect-ratio:16/10}}
+@media(prefers-reduced-motion:reduce){body::before,.stack .win,.marq div{animation:none}}
 @media(max-width:820px){nav{display:none}.grid,.cols{grid-template-columns:1fr}.facts{grid-template-columns:1fr}.price ul{columns:1}.hero{padding:70px 0 50px}section{padding:56px 0}.price{padding:28px}}
 @media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}html{scroll-behavior:auto}}
 </style>
 </head>
 <body>
+<div class="glow" id="glow"></div>
 <header><div class="wrap">
   <a class="logo" href="#top">Nika<i>.</i>dev</a>
   <nav><a href="#works">Работы</a><a href="#services">Услуги</a><a href="#steps">Этапы</a><a href="#faq">Вопросы</a></nav>
@@ -80,14 +109,19 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
 </div></header>
 
 <main id="top">
-<div class="wrap hero">
+<div class="wrap hero"><div class="heroGrid"><div>
   <span class="tag">Лендинги на заказ</span>
   <h1>Сайт под ключ, <span>который приносит заявки в ваш Telegram</span></h1>
   <p class="lead">Дизайн, вёрстка, домен и запуск. Заявки приходят прямо в мессенджер, а управлять ими можно из бота.</p>
   <div class="cta">
     <a class="btn" href="https://t.me/creator_nika" target="_blank" rel="noopener">Обсудить проект</a>
     <a class="btn ghost" href="#works">Смотреть работы</a>
-  </div>
+  </div></div>
+  <div class="stack" aria-hidden="true">
+    <div class="win w1"><div class="bar"><i></i><i></i><i></i></div><img src="img/kadr.jpg" alt=""></div>
+    <div class="win w2"><div class="bar"><i></i><i></i><i></i></div><img src="img/opora.jpg" alt=""></div>
+    <div class="win w3"><div class="bar"><i></i><i></i><i></i></div><img src="img/struzhka.jpg" alt=""></div>
+  </div></div>
   <div class="facts">
     <div><b>от 15 000 ₽</b><span>стоимость лендинга</span></div>
     <div><b>2–3 дня</b><span>срок разработки с согласованием</span></div>
@@ -95,15 +129,17 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
   </div>
 </div>
 
+<div class="marq"><div><span>Лендинги под ключ</span><span>Заявки в Telegram</span><span>Адаптив под телефон</span><span>Домен и запуск</span><span>2–3 дня</span><span>От 15 000 ₽</span><span>Лендинги под ключ</span><span>Заявки в Telegram</span><span>Адаптив под телефон</span><span>Домен и запуск</span><span>2–3 дня</span><span>От 15 000 ₽</span><span>Лендинги под ключ</span><span>Заявки в Telegram</span><span>Адаптив под телефон</span><span>Домен и запуск</span><span>2–3 дня</span><span>От 15 000 ₽</span><span>Лендинги под ключ</span><span>Заявки в Telegram</span><span>Адаптив под телефон</span><span>Домен и запуск</span><span>2–3 дня</span><span>От 15 000 ₽</span></div></div>
+
 <section id="works"><div class="wrap">
   <h2 class="reveal">Работы</h2>
   <p class="sub reveal">Демонстрационные проекты. Названия и логотипы в части работ изменены.</p>
   <div class="grid">
-    <a class="card reveal" href="https://reyaster.github.io/kadr-demo/" target="_blank" rel="noopener"><img src="img/kadr.jpg" alt="Лендинг «Кадр»" loading="lazy"><div class="in"><small>Наставничество · тёмная тема</small><h3>Кадр</h3><p>Лендинг курса для экспертов: программа, тарифы и запись на поток.</p><span class="go">Открыть демо →</span></div></a>
-    <a class="card reveal" href="https://reyaster.github.io/vera-lavrova-demo/" target="_blank" rel="noopener"><img src="img/vera.jpg" alt="Лендинг психолога" loading="lazy"><div class="in"><small>Услуги психолога</small><h3>Вера Лаврова</h3><p>Спокойный сайт частного специалиста с записью на консультацию.</p><span class="go">Открыть демо →</span></div></a>
-    <a class="card reveal" href="https://reyaster.github.io/opora-demo/" target="_blank" rel="noopener"><img src="img/opora.jpg" alt="Лендинг «Опора»" loading="lazy"><div class="in"><small>Строительство · квиз</small><h3>Опора</h3><p>Квиз-калькулятор стоимости ремонта: три вопроса и вилка цены.</p><span class="go">Открыть демо →</span></div></a>
-    <div class="card reveal"><img src="img/struzhka.jpg" alt="Лендинг «Стружка»" loading="lazy"><div class="in"><small>Детская мастерская</small><h3>Стружка</h3><p>Яркий лендинг столярной мастерской для детей с записью на пробное занятие.</p><span class="go off">Скриншот</span></div></div>
-    <div class="card reveal"><img src="img/bastion.jpg" alt="Лендинг «Бастион»" loading="lazy"><div class="in"><small>Спортивный клуб</small><h3>Бастион</h3><p>Тёмный лендинг военно-спортивного клуба: направления, группы и цены.</p><span class="go off">Скриншот</span></div></div>
+    <a class="card reveal" href="https://reyaster.github.io/kadr-demo/" target="_blank" rel="noopener"><div class="shot"><div class="bar"><i></i><i></i><i></i></div><img src="img/kadr.jpg" alt="Лендинг «Кадр»" loading="lazy"></div><div class="in"><small>Наставничество · тёмная тема</small><h3>Кадр</h3><p>Лендинг курса для экспертов: программа, тарифы и запись на поток.</p><span class="go">Открыть демо →</span></div></a>
+    <a class="card reveal" href="https://reyaster.github.io/vera-lavrova-demo/" target="_blank" rel="noopener"><div class="shot"><div class="bar"><i></i><i></i><i></i></div><img src="img/vera.jpg" alt="Лендинг психолога" loading="lazy"></div><div class="in"><small>Услуги психолога</small><h3>Вера Лаврова</h3><p>Спокойный сайт частного специалиста с записью на консультацию.</p><span class="go">Открыть демо →</span></div></a>
+    <a class="card reveal" href="https://reyaster.github.io/opora-demo/" target="_blank" rel="noopener"><div class="shot"><div class="bar"><i></i><i></i><i></i></div><img src="img/opora.jpg" alt="Лендинг «Опора»" loading="lazy"></div><div class="in"><small>Строительство · квиз</small><h3>Опора</h3><p>Квиз-калькулятор стоимости ремонта: три вопроса и вилка цены.</p><span class="go">Открыть демо →</span></div></a>
+    <div class="card reveal"><div class="shot"><div class="bar"><i></i><i></i><i></i></div><img src="img/struzhka.jpg" alt="Лендинг «Стружка»" loading="lazy"></div><div class="in"><small>Детская мастерская</small><h3>Стружка</h3><p>Яркий лендинг столярной мастерской для детей с записью на пробное занятие.</p><span class="go off">Скриншот</span></div></div>
+    <div class="card reveal"><div class="shot"><div class="bar"><i></i><i></i><i></i></div><img src="img/bastion.jpg" alt="Лендинг «Бастион»" loading="lazy"></div><div class="in"><small>Спортивный клуб</small><h3>Бастион</h3><p>Тёмный лендинг военно-спортивного клуба: направления, группы и цены.</p><span class="go off">Скриншот</span></div></div>
   </div>
 </div></section>
 
@@ -156,6 +192,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
 <script>
 const io=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting){x.target.classList.add('on');io.unobserve(x.target)}}),{threshold:.12});
 document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+addEventListener('pointermove',e=>{const g=document.getElementById('glow');g.style.left=e.clientX+'px';g.style.top=e.clientY+'px'},{passive:true});
 </script>
 </body>
 </html>
